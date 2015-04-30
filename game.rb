@@ -31,6 +31,11 @@ class Game
 
   end
 
+  def can_player_kill_an_enemy?
+    # To be used later to check whether the player can move again
+    If he has killed an enemy, then he should possibily be able to move again (i.e. he can chain attacks)
+  end
+
 
 
 
