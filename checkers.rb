@@ -47,8 +47,5 @@
       render_board
       current_player takes turn
       toggle player
-      
-
-
 
 =end
