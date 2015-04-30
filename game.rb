@@ -59,48 +59,44 @@ class Game
     pieces_black = Array.new(12){Piece.new(player1.color, self, "pb")}
     pieces_red = Array.new(12){Piece.new(player2.color, self, "pr")}
 
-    # setup black pieces
-    offset = true
-    byebug
-    3.times do |row|
-      8.times do |col|
-        col += 1 if offset
-        pos = [row, col]
-        if col.even?
+    black_starting_positions = [
+      [0,1,0,1,0,1,0,1],
+      [1,0,1,0,1,0,1,0],
+      [0,1,0,1,0,1,0,1]
+    ]
+
+    red_starting_positions = [
+      [1,0,1,0,1,0,1,0],
+      [0,1,0,1,0,1,0,1],
+      [1,0,1,0,1,0,1,0]
+    ]
+
+    black_starting_positions.each_with_index do |row, r_idx|
+      row.each_with_index do |piece_flag, c_idx|
+        pos = r_idx, c_idx
+        if piece_flag == 1
+          board[pos] = pieces_black.pop
+        else
           board[pos] = nil
-          next
         end
-        piece = pieces_black.pop
-        piece.pos = pos
-        board[pos] = piece
       end
-      offset = !offset
     end
 
-    board.number_pieces_on_board
-    byebug
-
-    # setup red pieces
-    offset = false
-    3.times do |row|
-      row = row + 5
-      8.times do |col|
-        col += 1 if offset
-        pos = [row, col]
-        if col.even?
+    red_starting_positions.each_with_index do |row, r_idx|
+      row.each_with_index do |piece_flag, c_idx|
+        pos = (r_idx + 5), c_idx
+        if piece_flag == 1
+          board[pos] = pieces_red.pop
+        else
           board[pos] = nil
-          next
         end
-        piece = pieces_red.pop
-        piece.pos = pos
-        board[pos] = piece
       end
-      offset = !offset
     end
   end
 
 
 end
+byebug
 p1 = Player.new(:black)
 p2 = Player.new(:white)
 g = Game.new(p1, p2)
