@@ -36,7 +36,7 @@ class Game
     If he has killed an enemy, then he should possibily be able to move again (i.e. he can chain attacks)
   end
 
-  def convert_coord_for_ui_perspective(coor)
+  def Game.convert_coord_from_ui_to_program_perspective(coor)
     # program_x + grid.size - (program_x + (program_x + 1))
     # (grid.size - 1 - program_x) <= to get from program_x to x_ui
     ui_x, ui_y = coor
@@ -47,5 +47,13 @@ class Game
 
 
 
-
+  def Game.convert_coord_from_program_to_ui_perspective(coor)
+    program_x, program_y = coor
+    program_x = board.grid.size - ui_x - 1
+    ui_x = board.grid.size - program_x - 1
+    [ui_x, ui_y]
+  end
 end
+
+b = Board.new.set_up_board
+b.render

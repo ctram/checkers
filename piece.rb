@@ -14,10 +14,11 @@ class Piece
 
   attr_accessor :color, :board, :pos, :kinged
 
-  def initialize(color, board)
+  def initialize(color, board, display)
     self.color = color
     self.board = board
     self.kinged = false
+    self.diplay = display
   end
 
   def move_to(pos)
@@ -110,7 +111,11 @@ class Piece
   end
 
 
-  def
+  def turn_into_king
+    self.kinged = true
+    self.color == :red ? color = "b" : color = "r"
+    self.display = "K#{color}"
+  end
 
   def remove_from_board
     board.piece_at(self.pos) = nil

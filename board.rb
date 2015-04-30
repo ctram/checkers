@@ -4,8 +4,6 @@ require 'piece'
 class Board
   attr_accessor :grid
 
-
-
   def initialize
     self.grid = Array.new(8){Array.new(8){}}
   end
@@ -31,12 +29,23 @@ class Board
   end
 
   def render
-
+    puts '###############################################'
+    puts "0 1 2 3 4 5 6 7"
+    puts '---------------'
+    grid.each do |row|
+      ui_pos = Game.convert_coord_from_program_to_ui_perspective([row, 0])
+      ui_x = ui_pos[0]# need just the x coordinate, y coord is always the same for both UI and program's perspective.
+      print "#{ui_x} |"
+      row.each do |col|
+        pos = [row, col]
+        print "#{self[pos].display}"
+      end
+    end
   end
-  
+
   def set_up_board
-    pieces_black = Array.new{Piece.new(:black, self)}
-    pieces_red = Array.new{Piece.new(:red. self)}
+    pieces_black = Array.new{Piece.new(:black, self, "pb")}
+    pieces_red = Array.new{Piece.new(:red. self, "pr")}
 
     # setup black pieces
     offset = true
