@@ -112,8 +112,7 @@ class Piece
 
   def turn_into_king
     self.kinged = true
-    self.color == :red ? color = "b" : color = "r"
-    self.display = "K#{color}"
+    self.display = "K"
   end
 
   def remove_from_board

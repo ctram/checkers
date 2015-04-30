@@ -43,15 +43,15 @@ class Board
 
         if every_other
           if self[pos] == nil
-            print colorize_w_bg("  ", :red)
+            print colorize_w_bg("   ", :white, :red)
           else
-            print colorize_w_bg("#{self[pos].display}", :red)
+            print colorize_w_bg("#{self[pos].display}", self[pos].color, :red)
           end
         else
           if self[pos] == nil
-            print colorize_w_bg("  ", :black)
+            print colorize_w_bg("   ", :white, :black)
           else
-            print colorize_w_bg("#{self[pos].display}", :black)
+            print colorize_w_bg("#{self[pos].display}", self[pos].color, :black)
           end
         end
         every_other = !every_other
@@ -64,8 +64,8 @@ class Board
 
   end
 
-  def colorize_w_bg(output, color)
-    output.colorize(color: :white, background: color)
+  def colorize_w_bg(output, piece_color,  bg_color)
+    output.colorize(color: piece_color, background: bg_color)
   end
 
   def convert_coord_from_program_to_ui_perspective(coor)

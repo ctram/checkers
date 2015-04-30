@@ -56,8 +56,10 @@ class Game
   # end
 
   def set_up_board
-    pieces_black = Array.new(12){Piece.new(player1.color, self, "pb")}
-    pieces_red = Array.new(12){Piece.new(player2.color, self, "pr")}
+    piece_shape = " \u25C9 ".encode('utf-8')
+
+    pieces_black = Array.new(12){Piece.new(player1.color, self, piece_shape)}
+    pieces_red = Array.new(12){Piece.new(player2.color, self, piece_shape)}
 
     black_starting_positions = [
       [0,1,0,1,0,1,0,1],
@@ -97,8 +99,8 @@ class Game
 
 end
 byebug
-p1 = Player.new(:black)
-p2 = Player.new(:white)
+p1 = Player.new(:white)
+p2 = Player.new(:red)
 g = Game.new(p1, p2)
 g.set_up_board
 b = g.board
