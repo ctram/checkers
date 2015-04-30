@@ -1,4 +1,5 @@
 # board
+require 'piece'
 
 class Board
   attr_accessor :grid
@@ -29,16 +30,41 @@ class Board
     x_pos < board.grid.size && x >= 0 && y_pos < board.grid.size && y_pos >= 0
   end
 
+  def render
+
+  end
+  
   def set_up_board
+    pieces_black = Array.new{Piece.new(:black, self)}
+    pieces_red = Array.new{Piece.new(:red. self)}
 
+    # setup black pieces
+    offset = true
+    3.times do |row|
+      4.times do |col|
+        col += 1 if offset
+        pos = [row, col]
+        piece = pieces_black.pop
+        piece.pos = pos
+        board[pos] = piece
+      end
+      offset = !offset
+    end
+
+    # setup red pieces
+    offset = false
+    3.times do |row|
+      row = row + 5
+      4.times do |col|
+        col += 1 if offset
+        pos = [row, col]
+        piece = pieces_black.pop
+        piece.pos = pos
+        board[pos] = piece
+      end
+      offset = !offset
+    end
   end
 
-  def convert_coord_for_ui_perspective(coor)
-    # program_x + grid.size - (program_x + (program_x + 1))
-    # (grid.size - 1 - program_x) <= to get from program_x to x_ui
-    ui_x, ui_y = coor
-    program_x = grid.size - ui_x - 1
-    program_y = ui_x
-    [program_x, program_y]
-  end
+
 end

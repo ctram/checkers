@@ -14,10 +14,9 @@ class Piece
 
   attr_accessor :color, :board, :pos, :kinged
 
-  def initialize(color, board, pos)
+  def initialize(color, board)
     self.color = color
     self.board = board
-    self.pos = pos
     self.kinged = false
   end
 
