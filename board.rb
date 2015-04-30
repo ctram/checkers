@@ -15,7 +15,7 @@ class Board
   end
   def []=(pos, arg)
     x, y = pos
-    grid[x][y]
+    grid[x][y] = arg
   end
 
   def occupied_at?(pos)
