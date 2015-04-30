@@ -5,26 +5,25 @@ class Piece
     [-1,  1],
   ]
 
-  KING_DIRECTION_DELTAS = {
+  KING_DIRECTION_DELTAS = [
     [ 1,  1],
     [-1,  1],
-    [ 1, -1]
+    [ 1, -1],
     [-1, -1]
-  }
+  ]
 
-  attr_accessor :color, :board, :pos, :kinged
+  attr_accessor :color, :board, :pos, :kinged, :display
 
   def initialize(color, board, display)
     self.color = color
     self.board = board
     self.kinged = false
-    self.diplay = display
+    self.display = display
   end
 
   def move_to(pos)
-
-    board.piece_at(self.pos) = nil
-    board.piece_at(pos) = self
+    board[self.pos] = nil
+    board[pos] = self
     self.pos = pos
   end
 
@@ -118,7 +117,7 @@ class Piece
   end
 
   def remove_from_board
-    board.piece_at(self.pos) = nil
+    board[self.pos] = nil
   end
 
 

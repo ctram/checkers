@@ -1,5 +1,5 @@
 # board
-require 'piece'
+require_relative 'piece'
 
 class Board
   attr_accessor :grid
@@ -10,6 +10,7 @@ class Board
 
   def [](pos)
     x, y = pos
+
     grid[x][y]
   end
   def []=(pos, arg)
@@ -25,55 +26,40 @@ class Board
 
   def piece_on_board?(pos)
     x_pos, y_pos = pos
-    x_pos < board.grid.size && x >= 0 && y_pos < board.grid.size && y_pos >= 0
+    x_pos < grid.size && x >= 0 && y_pos < grid.size && y_pos >= 0
   end
 
   def render
     puts '###############################################'
-    puts "0 1 2 3 4 5 6 7"
-    puts '---------------'
-    grid.each do |row|
-      ui_pos = Game.convert_coord_from_program_to_ui_perspective([row, 0])
+    puts '-------------------------'
+    grid.each_with_index do |row, r_idx|
+      ui_pos = convert_coord_from_program_to_ui_perspective([r_idx, 0])
       ui_x = ui_pos[0]# need just the x coordinate, y coord is always the same for both UI and program's perspective.
       print "#{ui_x} |"
-      row.each do |col|
-        pos = [row, col]
-        print "#{self[pos].display}"
+      row.each_with_index do |col, c_idx|
+        pos = [r_idx, c_idx]
+        print "#{self[pos].display}   "
       end
+      puts
     end
+    puts '-------------------------'
+    puts "   0  1  2  3  4  5  6  7"
+
   end
 
-  def set_up_board
-    pieces_black = Array.new{Piece.new(:black, self, "pb")}
-    pieces_red = Array.new{Piece.new(:red. self, "pr")}
-
-    # setup black pieces
-    offset = true
-    3.times do |row|
-      4.times do |col|
-        col += 1 if offset
-        pos = [row, col]
-        piece = pieces_black.pop
-        piece.pos = pos
-        board[pos] = piece
-      end
-      offset = !offset
-    end
-
-    # setup red pieces
-    offset = false
-    3.times do |row|
-      row = row + 5
-      4.times do |col|
-        col += 1 if offset
-        pos = [row, col]
-        piece = pieces_black.pop
-        piece.pos = pos
-        board[pos] = piece
-      end
-      offset = !offset
-    end
+  def convert_coord_from_program_to_ui_perspective(coor)
+    program_x, program_y = coor
+    ui_x = grid.size - program_x - 1
+    ui_y = program_y
+    [ui_x, ui_y]
   end
 
-
+  def convert_coord_from_ui_to_program_perspective(coor)
+    # program_x + grid.size - (program_x + (program_x + 1))
+    # (grid.size - 1 - program_x) <= to get from program_x to x_ui
+    ui_x, ui_y = coor
+    program_x = grid.size - ui_x - 1
+    program_y = ui_x
+    [program_x, program_y]
+  end
 end
