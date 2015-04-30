@@ -85,7 +85,7 @@ class Board
   end
 
   def num_pieces_on_board
-    byebug
+    #byebug
     num_pieces = grid.select do |row|
       row.select do |col|
         col.is_a?(Piece)

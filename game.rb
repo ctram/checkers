@@ -1,4 +1,3 @@
-require 'byebug'
 require 'colorize'
 require_relative 'board'
 require_relative 'player'
@@ -56,7 +55,7 @@ class Game
   # end
 
   def set_up_board
-    piece_shape = " \u25C9 ".encode('utf-8')
+    piece_shape = " \u25C9 "
 
     pieces_black = Array.new(12){Piece.new(player1.color, self, piece_shape)}
     pieces_red = Array.new(12){Piece.new(player2.color, self, piece_shape)}
@@ -98,7 +97,7 @@ class Game
 
 
 end
-byebug
+#byebug
 p1 = Player.new(:white)
 p2 = Player.new(:red)
 g = Game.new(p1, p2)
