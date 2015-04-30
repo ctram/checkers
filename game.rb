@@ -1,3 +1,4 @@
+require 'byebug'
 require 'colorize'
 require_relative 'board'
 require_relative 'player'
@@ -57,8 +58,8 @@ class Game
   def set_up_board
     piece_shape = " \u25C9 "
 
-    pieces_black = Array.new(12){Piece.new(player1.color, self, piece_shape)}
-    pieces_red = Array.new(12){Piece.new(player2.color, self, piece_shape)}
+    pieces_black = Array.new(12){Piece.new(player1.color, board, piece_shape)}
+    pieces_red = Array.new(12){Piece.new(player2.color, board, piece_shape)}
 
     black_starting_positions = [
       [0,1,0,1,0,1,0,1],
@@ -76,7 +77,9 @@ class Game
       row.each_with_index do |piece_flag, c_idx|
         pos = r_idx, c_idx
         if piece_flag == 1
-          board[pos] = pieces_black.pop
+          piece = pieces_black.pop
+          piece.pos = pos
+          board[pos] = piece
         else
           board[pos] = nil
         end
@@ -87,7 +90,9 @@ class Game
       row.each_with_index do |piece_flag, c_idx|
         pos = (r_idx + 5), c_idx
         if piece_flag == 1
-          board[pos] = pieces_red.pop
+          piece = pieces_red.pop
+          piece.pos = pos
+          board[pos] = piece
         else
           board[pos] = nil
         end
@@ -95,6 +100,10 @@ class Game
     end
   end
 
+def give_boards_to_players
+  player1.board = board
+  player2.board = board
+end
 
 end
 #byebug
@@ -102,5 +111,9 @@ p1 = Player.new(:white)
 p2 = Player.new(:red)
 g = Game.new(p1, p2)
 g.set_up_board
+g.give_boards_to_players
 b = g.board
+b.render
+x = b.piece_at([0,1])
+x.move_to([3,2])
 b.render

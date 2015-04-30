@@ -22,6 +22,7 @@ class Board
   end
 
   def piece_at(pos)
+    self[pos]
   end
 
   def piece_on_board?(pos)
