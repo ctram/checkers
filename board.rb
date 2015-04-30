@@ -32,19 +32,40 @@ class Board
   def render
     puts '###############################################'
     puts '-------------------------'
+    alternator = true
     grid.each_with_index do |row, r_idx|
       ui_pos = convert_coord_from_program_to_ui_perspective([r_idx, 0])
       ui_x = ui_pos[0]# need just the x coordinate, y coord is always the same for both UI and program's perspective.
       print "#{ui_x} |"
+      alternator ? every_other = true : every_other = false
       row.each_with_index do |col, c_idx|
         pos = [r_idx, c_idx]
-        print "#{self[pos].display}   "
+
+        if every_other
+          if self[pos] == nil
+            print colorize_w_bg("  ", :red)
+          else
+            print colorize_w_bg("#{self[pos].display}", :red)
+          end
+        else
+          if self[pos] == nil
+            print colorize_w_bg("  ", :black)
+          else
+            print colorize_w_bg("#{self[pos].display}", :black)
+          end
+        end
+        every_other = !every_other
       end
+      alternator = !alternator
       puts
     end
     puts '-------------------------'
-    puts "   0  1  2  3  4  5  6  7"
+    puts "   0 1 2 3 4 5 6 7"
 
+  end
+
+  def colorize_w_bg(output, color)
+    output.colorize(color: :white, background: color)
   end
 
   def convert_coord_from_program_to_ui_perspective(coor)
@@ -61,5 +82,14 @@ class Board
     program_x = grid.size - ui_x - 1
     program_y = ui_x
     [program_x, program_y]
+  end
+
+  def number_pieces_on_board
+    num_pieces = grid.select do |row|
+      row.select do |col|
+        col.is_a?(Piece)
+      end
+    end
+    num_pieces.count
   end
 end

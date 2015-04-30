@@ -1,4 +1,5 @@
 require 'byebug'
+require 'colorize'
 require_relative 'board'
 require_relative 'player'
 # game
@@ -60,10 +61,15 @@ class Game
 
     # setup black pieces
     offset = true
+    byebug
     3.times do |row|
-      4.times do |col|
+      8.times do |col|
         col += 1 if offset
         pos = [row, col]
+        if col.even?
+          board[pos] = nil
+          next
+        end
         piece = pieces_black.pop
         piece.pos = pos
         board[pos] = piece
@@ -71,13 +77,20 @@ class Game
       offset = !offset
     end
 
+    board.number_pieces_on_board
+    byebug
+
     # setup red pieces
     offset = false
     3.times do |row|
       row = row + 5
-      4.times do |col|
+      8.times do |col|
         col += 1 if offset
         pos = [row, col]
+        if col.even?
+          board[pos] = nil
+          next
+        end
         piece = pieces_red.pop
         piece.pos = pos
         board[pos] = piece
