@@ -18,7 +18,7 @@ class Player
       puts 'You must choose a square on the board.'
       retry
     end
-    byebug
+
 
     begin
       chosen_dest_pos = choose_destination

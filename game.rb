@@ -1,4 +1,3 @@
-require 'byebug'
 require 'colorize'
 require_relative 'board'
 require_relative 'player'
@@ -22,6 +21,10 @@ class Game
   end
 
   def player_turn
+  end
+
+  def toggle_player
+    current_player == player1 ? current_player = player2 : current_player = player1
   end
 
   def win?
@@ -114,9 +117,10 @@ g.set_up_board
 g.give_boards_to_players
 b = g.board
 b.render
-byebug
+
 p1.takes_turn
 b.render
+g.play
 # pos = b.convert_coord_from_ui_to_program_perspective([0,0])
 # b.piece_at(pos).remove_from_board
 # b.render
