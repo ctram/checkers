@@ -35,9 +35,10 @@ class Board
     puts '-------------------------'
     alternator = true
     grid.each_with_index do |row, r_idx|
+
       ui_pos = convert_coord_from_program_to_ui_perspective([r_idx, 0])
-      ui_x = ui_pos[0]# need just the x coordinate, y coord is always the same for both UI and program's perspective.
-      print "#{ui_x} |"
+      ui_y = ui_pos[1]# need just the x coordinate, y coord is always the same for both UI and program's perspective.
+      print "#{ui_y} |"
       alternator ? every_other = true : every_other = false
       row.each_with_index do |col, c_idx|
         pos = [r_idx, c_idx]
@@ -71,8 +72,8 @@ class Board
 
   def convert_coord_from_program_to_ui_perspective(coor)
     program_x, program_y = coor
-    ui_x = grid.size - program_y - 1
-    ui_y = program_x
+    ui_y = grid.size - program_x - 1
+    ui_x = program_y
     [ui_x, ui_y]
   end
 
@@ -86,7 +87,7 @@ class Board
   end
 
   def num_pieces_on_board
-    #byebug
+    #
     num_pieces = grid.select do |row|
       row.select do |col|
         col.is_a?(Piece)

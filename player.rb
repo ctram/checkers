@@ -10,7 +10,7 @@ class Player
 
   def takes_turn
     begin
-      chosen_piece = choose_piece
+      chosen_piece_pos = choose_piece
     rescue IncorrectColorChosenError => e
       puts "You must choose a piece that shares your color."
       retry
@@ -18,9 +18,10 @@ class Player
       puts 'You must choose a square on the board.'
       retry
     end
+    byebug
 
     begin
-      chosen_dest = choose_destination
+      chosen_dest_pos = choose_destination
     rescue NotOnBoardError => e
       puts 'You must choose a square on the board.'
       retry
@@ -28,6 +29,8 @@ class Player
       puts 'You cannot land on another piece.'
       retry
     end
+    chosen_piece = board.piece_at(chosen_piece_pos)
+    chosen_piece.move_to(chosen_dest_pos)
   end
 
   def square_occupied?(pos)
@@ -41,14 +44,14 @@ class Player
 
   def choose_piece
     puts 'Enter the coordinate of the piece you want to move.'
-    pos = gets.chomp.split('')
+    pos = gets.chomp.split(',')
     pos.map! {|e| e.to_i}
     board.convert_coord_from_ui_to_program_perspective(pos)
   end
 
   def choose_destination
     puts 'Enter the coordinate of the square you want to land on.'
-    pos = gets.chomp.split('')
+    pos = gets.chomp.split(',')
     pos.map! {|e| e.to_i}
     board.convert_coord_from_ui_to_program_perspective(pos)
   end

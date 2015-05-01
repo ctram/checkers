@@ -22,7 +22,7 @@ class Piece
   end
 
   def move_to(pos)
-    byebug
+
     board[self.pos] = nil
     board[pos] = self
     self.pos = pos

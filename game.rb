@@ -106,7 +106,7 @@ def give_boards_to_players
 end
 
 end
-#byebug
+#
 p1 = Player.new(:white)
 p2 = Player.new(:red)
 g = Game.new(p1, p2)
@@ -114,12 +114,14 @@ g.set_up_board
 g.give_boards_to_players
 b = g.board
 b.render
-# p1.takes_turn
-pos = b.convert_coord_from_ui_to_program_perspective([0,0])
-b.piece_at(pos).remove_from_board
+byebug
+p1.takes_turn
 b.render
-p b.grid[5][0]
-
-pos = b.convert_coord_from_ui_to_program_perspective([0,2])
-b.piece_at(pos).remove_from_board
-b.render
+# pos = b.convert_coord_from_ui_to_program_perspective([0,0])
+# b.piece_at(pos).remove_from_board
+# b.render
+# p b.grid[5][0]
+#
+# pos = b.convert_coord_from_ui_to_program_perspective([0,2])
+# b.piece_at(pos).remove_from_board
+# b.render
