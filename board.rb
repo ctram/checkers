@@ -71,8 +71,8 @@ class Board
 
   def convert_coord_from_program_to_ui_perspective(coor)
     program_x, program_y = coor
-    ui_x = grid.size - program_x - 1
-    ui_y = program_y
+    ui_x = grid.size - program_y - 1
+    ui_y = program_x
     [ui_x, ui_y]
   end
 
@@ -80,7 +80,7 @@ class Board
     # program_x + grid.size - (program_x + (program_x + 1))
     # (grid.size - 1 - program_x) <= to get from program_x to x_ui
     ui_x, ui_y = coor
-    program_x = grid.size - ui_x - 1
+    program_x = grid.size - ui_y - 1
     program_y = ui_x
     [program_x, program_y]
   end

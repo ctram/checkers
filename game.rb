@@ -118,3 +118,8 @@ b.render
 pos = b.convert_coord_from_ui_to_program_perspective([0,0])
 b.piece_at(pos).remove_from_board
 b.render
+p b.grid[5][0]
+
+pos = b.convert_coord_from_ui_to_program_perspective([0,2])
+b.piece_at(pos).remove_from_board
+b.render
