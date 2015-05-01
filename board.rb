@@ -61,7 +61,7 @@ class Board
       puts
     end
     puts '-------------------------'
-    puts "   0 1 2 3 4 5 6 7"
+    puts "   0  1  2  3  4  5  6  7"
 
   end
 
@@ -93,5 +93,8 @@ class Board
       end
     end
     num_pieces.count
+  end
+
+  def on_board?(pos)
   end
 end

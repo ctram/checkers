@@ -114,6 +114,7 @@ g.set_up_board
 g.give_boards_to_players
 b = g.board
 b.render
-x = b.piece_at([0,1])
-x.move_to([3,2])
+# p1.takes_turn
+pos = b.convert_coord_from_ui_to_program_perspective([0,0])
+b.piece_at(pos).remove_from_board
 b.render
